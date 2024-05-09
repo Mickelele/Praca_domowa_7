@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using WebApplication4.Context;
 using WebApplication4.Repositories;
-using WebApplication4.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,18 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.AddScoped<OrderService>();
-builder.Services.AddScoped<ProductService>();
-builder.Services.AddScoped<WarehouseService>();
-builder.Services.AddScoped<OrderRepository>();
-builder.Services.AddScoped<ProductRepository>();
-builder.Services.AddScoped<WarehouseRepository>();
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<TestContext>(options =>
-    options.UseSqlServer(connectionString));
-
-builder.Services.AddScoped<TestContext>();
+builder.Services.AddScoped<ProductWarehouseRepository>();
 
 var app = builder.Build();
 
